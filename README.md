@@ -21,6 +21,9 @@
 * `README.md`
 
 #### Description
+Create a server that accepts file uploads, stores the file in AWS S3, and stores a
+reference to the S3 storage location in a local database.
+
 * Create an AWS account
 * Create an AWS Access Key and Secret
   * Add the Access Key and Secret to your `.env` file
@@ -32,13 +35,22 @@
 * Use `multer` to parse the file upload request
 
 #### Server Endpoint
-* `POST` - `/api/resource/:resourceID/new-resource`
-
-#### Tests
-* `POST` - **200** - test that the upload worked and a resource object is returned
+* `POST` - `/api/resource`
+* Test: `POST` - **200** - test that the upload worked and a resource object is returned
+* `GET` - `/api/resource`
+* Test: `GET` - **200** - returns a list of all resources that have been
+  uploaded
+* `GET` - `/api/resource?id`
+* Test: `GET` - **200** - returns info on one resource that's been uploaded
 
 #### Stretch Goals
-* `DELETE` route - `/api/resource/:resourceID/new-resource/:new-resourceID`
+##### Add Auth
+* Add Authorization so users can sign up, and log in.
+* Restrict the `GET` endpoints to only return resources associated with the
+  authorized user account.
+
+##### Allow Deletion
+* `DELETE` route - `/api/resource?resourceID`
 * Test: `DELETE` - **204** - test to ensure the object was deleted from s3
 
 * Try using the `deleteObject` method provided by the `aws-sdk` to delete an object *(file)* from S3
